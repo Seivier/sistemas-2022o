@@ -1,0 +1,30 @@
+Sistema operativo utilizado
+Linux virtualbox 5.10.0-13-amd64 #1 SMP Debian 5.10.106-1 (2022-03-17) x86_64 GNU/Linux
+==== run ====
+gcc -O -DOPT=1 -Wall -Werror -pedantic -std=c18  h2o.c test-h2o.c pss.c h2o.h pss.h -pthread -o h2o.bin
+./h2o.bin
+Primer test de prueba: semantica
+Test aprobado
+Test de robustez
+Felicitaciones: todos los tests aprobados
+==== run-g ====
+gcc -g -Wall -Werror -pedantic -std=c18  h2o.c test-h2o.c pss.c h2o.h pss.h -pthread -o h2o.bin-g
+./h2o.bin-g
+Primer test de prueba: semantica
+Test aprobado
+Test de robustez
+Felicitaciones: todos los tests aprobados
+==== run-san ====
+gcc -g -DSAN=1 -fsanitize=thread -DSANITIZE -Wall -Werror -pedantic -std=c18  h2o.c test-h2o.c pss.c h2o.h pss.h -pthread -o h2o.bin-san
+./h2o.bin-san
+Primer test de prueba: semantica
+Test aprobado
+Test de robustez
+Felicitaciones: todos los tests aprobados
+==== run-mem ====
+gcc -g -DSAN=1 -fsanitize=address -fsanitize=undefined -DSANITIZE -Wall -Werror -pedantic -std=c18  h2o.c test-h2o.c pss.c h2o.h pss.h -pthread -o h2o.bin-mem
+./h2o.bin-mem
+Primer test de prueba: semantica
+Test aprobado
+Test de robustez
+Felicitaciones: todos los tests aprobados

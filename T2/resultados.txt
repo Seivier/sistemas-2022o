@@ -1,0 +1,122 @@
+Sistema operativo utilizado
+Linux virtualbox 5.10.0-13-amd64 #1 SMP Debian 5.10.106-1 (2022-03-17) x86_64 GNU/Linux
+==== run ====
+gcc -O -DOPT=1 -Wall -Werror -pedantic -std=c18  disco.c test-disco.c disco.h -pthread -o disco.bin
+./disco.bin
+Test: una sola pareja, adan y eva
+eva espera pareja
+adan espera pareja
+La pareja de eva es adan
+La pareja de adan es eva
+Aprobado
+Test: el ejemplo del enunciado
+ana espera pareja
+sara espera pareja
+pedro espera pareja
+La pareja de ana es pedro
+La pareja de pedro es ana
+juan espera pareja
+La pareja de sara es juan
+La pareja de juan es sara
+diego espera pareja
+alba espera pareja
+La pareja de diego es alba
+La pareja de alba es diego
+Aprobado
+Test: Orden de llegada de los varones
+Aprobado
+Test: Orden de llegada de las damas
+Aprobado
+Test: robustez
+Aprobado
+Felicitaciones: aprobo todos los tests
+==== run-g ====
+gcc -g -Wall -Werror -pedantic -std=c18  disco.c test-disco.c disco.h -pthread -o disco.bin-g
+./disco.bin-g
+Test: una sola pareja, adan y eva
+eva espera pareja
+adan espera pareja
+La pareja de eva es adan
+La pareja de adan es eva
+Aprobado
+Test: el ejemplo del enunciado
+ana espera pareja
+sara espera pareja
+pedro espera pareja
+La pareja de ana es pedro
+La pareja de pedro es ana
+juan espera pareja
+La pareja de sara es juan
+La pareja de juan es sara
+diego espera pareja
+alba espera pareja
+La pareja de diego es alba
+La pareja de alba es diego
+Aprobado
+Test: Orden de llegada de los varones
+Aprobado
+Test: Orden de llegada de las damas
+Aprobado
+Test: robustez
+Aprobado
+Felicitaciones: aprobo todos los tests
+==== run-san ====
+gcc -g -DSAN=1 -fsanitize=thread -DSANITIZE -Wall -Werror -pedantic -std=c18  disco.c test-disco.c disco.h -pthread -o disco.bin-san
+./disco.bin-san
+Test: una sola pareja, adan y eva
+eva espera pareja
+adan espera pareja
+La pareja de eva es adan
+La pareja de adan es eva
+Aprobado
+Test: el ejemplo del enunciado
+ana espera pareja
+sara espera pareja
+pedro espera pareja
+La pareja de ana es pedro
+La pareja de pedro es ana
+juan espera pareja
+La pareja de sara es juan
+La pareja de juan es sara
+diego espera pareja
+alba espera pareja
+La pareja de diego es alba
+La pareja de alba es diego
+Aprobado
+Test: Orden de llegada de los varones
+Aprobado
+Test: Orden de llegada de las damas
+Aprobado
+Test: robustez
+Aprobado
+Felicitaciones: aprobo todos los tests
+==== run-mem ====
+gcc -g -DSAN=1 -fsanitize=address -fsanitize=undefined -DSANITIZE -Wall -Werror -pedantic -std=c18  disco.c test-disco.c disco.h -pthread -o disco.bin-mem
+./disco.bin-mem
+Test: una sola pareja, adan y eva
+eva espera pareja
+adan espera pareja
+La pareja de eva es adan
+La pareja de adan es eva
+Aprobado
+Test: el ejemplo del enunciado
+ana espera pareja
+sara espera pareja
+pedro espera pareja
+La pareja de ana es pedro
+La pareja de pedro es ana
+juan espera pareja
+La pareja de sara es juan
+La pareja de juan es sara
+diego espera pareja
+alba espera pareja
+La pareja de diego es alba
+La pareja de alba es diego
+Aprobado
+Test: Orden de llegada de los varones
+Aprobado
+Test: Orden de llegada de las damas
+Aprobado
+Test: robustez
+Aprobado
+Felicitaciones: aprobo todos los tests

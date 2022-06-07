@@ -1,0 +1,1143 @@
+Sistema operativo utilizado
+Linux debian11mate 5.10.0-12-amd64 #1 SMP Debian 5.10.103-1 (2022-03-07) x86_64 GNU/Linux
+==== run ====
+gcc -O2 -DOPT -g -DNOINI -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin
+./test-pub.bin
+Info: setting single-core FCFS scheduling
+8
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+6: maria sale
+5: pedro solicita entrar
+7: ana sale
+7: juan entra
+7: pedro entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: maria entra
+7: ana entra
+7: silvia entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: pedro entra
+10: diego entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: maria entra
+5: ana entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: pedro entra
+9: diego entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+FMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMF
+
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 1
+Info: total context changes = 9000196
+Info: Implicit context changes = 0
+==== run-g ====
+gcc -g -DNOINI -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin-g
+./test-pub.bin-g
+Info: setting single-core FCFS scheduling
+8
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+6: maria sale
+4: silvia solicita entrar
+5: pedro solicita entrar
+7: ana sale
+7: juan entra
+7: pedro entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: maria entra
+7: ana entra
+7: silvia entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: pedro entra
+10: diego entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: maria entra
+5: ana entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: pedro entra
+9: diego entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+FMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMF
+
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 1
+Info: total context changes = 9000196
+Info: Implicit context changes = 0
+==== run-mem ====
+gcc -g -fsanitize=address -fsanitize=undefined -DSANITIZE -DNOINI -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin-mem
+./test-pub.bin-mem
+Info: setting single-core FCFS scheduling
+8
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra
+7: pedro entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: maria entra
+7: ana entra
+7: silvia entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: pedro entra
+10: diego entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: maria entra
+5: ana entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: pedro entra
+9: diego entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+FMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMF
+
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 1
+Info: total context changes = 9000196
+Info: Implicit context changes = 0
+==== run-tricore ====
+gcc -O2 -DOPT -g -DNOINI -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin
+./test-pub.bin -slice 100 -ncores 3
+Info: setting multi-core round robin scheduling
+8
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: pedro entra
+7: juan entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: silvia entra
+7: ana entra
+7: maria entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: diego entra
+10: pedro entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: ana entra
+5: maria entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: diego entra
+9: pedro entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+FMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMF
+
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 3
+Info: total context changes = 13799031
+Info: Implicit context changes = 1
+==== run-tricore-g ====
+gcc -g -DNOINI -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin-g
+./test-pub.bin-g -slice 100 -ncores 3
+Info: setting multi-core round robin scheduling
+8
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: pedro entra
+7: juan entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: silvia entra
+7: ana entra
+7: maria entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: diego entra
+10: pedro entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: ana entra
+5: maria entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: diego entra
+9: pedro entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+FMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMFFFMF
+
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 3
+Info: total context changes = 13695336
+Info: Implicit context changes = 1
+==== run-tricore-mem ====
+gcc -g -fsanitize=address -fsanitize=undefined -DSANITIZE -DNOINI -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin-mem
+./test-pub.bin-mem -slice 100 -ncores 3
+Info: setting multi-core round robin scheduling
+8
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+6: maria sale
+5: pedro solicita entrar
+7: ana sale
+7: pedro entra
+7: juan entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+7: juan sale
+7: ana entra
+7: maria entra
+6: silvia solicita entrar
+8: ana sale
+10: maria sale
+10: diego entra
+10: pedro entra
+11: pedro sale
+12: diego sale
+12: silvia entra
+14: silvia sale
+Info: Number of cores = 3
+Info: total context changes = 101
+Info: Implicit context changes = 0

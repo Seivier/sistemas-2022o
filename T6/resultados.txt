@@ -1,0 +1,134 @@
+Sistema operativo utilizado
+Linux debian 5.10.0-14-amd64 #1 SMP Debian 5.10.113-1 (2022-04-29) x86_64 GNU/Linux
+==== make run ====
+gcc -O -DOPT=1  -Wall -Werror -Wno-unused-function -pedantic -std=c18  pedir.c test-pedir.c pss.c spin-locks.c swap.s pedir.h pss.h spin-locks.h -pthread -o pedir.bin
+./pedir.bin
+El ejemplo del enunciado
+------------------------
+
+Tpo=0: T1 (core 1) invoca pedir(0)
+Tpo=0: T1 cat 0 obtiene recurso
+Tpo=1:                     T3 (core 2) invoca pedir(0)
+Tpo=2:           T2 (core 3) invoca pedir(1)
+Tpo=3:                                         T5 (core 4) invoca pedir(0)
+Tpo=3: Esperando que T1 termine
+Tpo=4: T1 devuelve recurso
+Tpo=4:           T2 cat 1 obtiene recurso
+Tpo=4: T1 termino
+Tpo=5:                               T4 (core 5) invoca pedir(1)
+Tpo=6:           T2 devuelve recurso
+Tpo=6:                     T3 cat 0 obtiene recurso
+Tpo=6:           Esperando que T2 termine
+Tpo=6:           T2 termino
+Tpo=6:                     Esperando que T3 termine
+Tpo=7:                     T3 devuelve recurso
+Tpo=7:                               T4 cat 1 obtiene recurso
+Tpo=7:                     T3 termino
+Tpo=7:                               Esperando que T4 termine
+Tpo=8:                               T4 devuelve recurso
+Tpo=8:                                         T5 cat 0 obtiene recurso
+Tpo=8:                               T4 termino
+Tpo=8:                                         Esperando que T5 termine
+Tpo=9:                                         T5 devuelve recurso
+Tpo=9:                                         T5 termino
+
+Test de robustez
+----------------
+
+
+Toma un poco mas de 10 segundos
+c1 c2 c3 ... significa que ese core comenzo a trabajar
+
+c1 c2 c3 c4 c5 c6 c7 c8 
+Numero de entradas/salidas = 18748
+En mi computador make run reporto unas 10 mil entradas/salidas con 3 cores
+
+Felicitaciones: funciona
+==== make run-g ====
+gcc -g  -Wall -Werror -Wno-unused-function -pedantic -std=c18  pedir.c test-pedir.c pss.c spin-locks.c swap.s pedir.h pss.h spin-locks.h -pthread -o pedir.bin-g
+./pedir.bin-g
+El ejemplo del enunciado
+------------------------
+
+Tpo=0: T1 (core 1) invoca pedir(0)
+Tpo=0: T1 cat 0 obtiene recurso
+Tpo=1:                     T3 (core 2) invoca pedir(0)
+Tpo=2:           T2 (core 3) invoca pedir(1)
+Tpo=3:                                         T5 (core 4) invoca pedir(0)
+Tpo=3: Esperando que T1 termine
+Tpo=4: T1 devuelve recurso
+Tpo=4:           T2 cat 1 obtiene recurso
+Tpo=4: T1 termino
+Tpo=5:                               T4 (core 5) invoca pedir(1)
+Tpo=6:           T2 devuelve recurso
+Tpo=6:                     T3 cat 0 obtiene recurso
+Tpo=6:           Esperando que T2 termine
+Tpo=6:           T2 termino
+Tpo=6:                     Esperando que T3 termine
+Tpo=7:                     T3 devuelve recurso
+Tpo=7:                               T4 cat 1 obtiene recurso
+Tpo=7:                     T3 termino
+Tpo=7:                               Esperando que T4 termine
+Tpo=8:                               T4 devuelve recurso
+Tpo=8:                                         T5 cat 0 obtiene recurso
+Tpo=8:                               T4 termino
+Tpo=8:                                         Esperando que T5 termine
+Tpo=9:                                         T5 devuelve recurso
+Tpo=9:                                         T5 termino
+
+Test de robustez
+----------------
+
+
+Toma un poco mas de 10 segundos
+c1 c2 c3 ... significa que ese core comenzo a trabajar
+
+c1 c2 c3 c4 c5 c6 c7 c8 
+Numero de entradas/salidas = 31368
+En mi computador make run reporto unas 10 mil entradas/salidas con 3 cores
+
+Felicitaciones: funciona
+==== make run-mem ====
+gcc -g -DSAN=1 -fsanitize=address -fsanitize=undefined -DSANITIZE  -Wall -Werror -Wno-unused-function -pedantic -std=c18  pedir.c test-pedir.c pss.c spin-locks.c swap.s pedir.h pss.h spin-locks.h -pthread -o pedir.bin-mem
+./pedir.bin-mem
+El ejemplo del enunciado
+------------------------
+
+Tpo=0: T1 (core 1) invoca pedir(0)
+Tpo=0: T1 cat 0 obtiene recurso
+Tpo=1:                     T3 (core 2) invoca pedir(0)
+Tpo=2:           T2 (core 3) invoca pedir(1)
+Tpo=3:                                         T5 (core 4) invoca pedir(0)
+Tpo=3: Esperando que T1 termine
+Tpo=4: T1 devuelve recurso
+Tpo=4:           T2 cat 1 obtiene recurso
+Tpo=4: T1 termino
+Tpo=5:                               T4 (core 5) invoca pedir(1)
+Tpo=6:           T2 devuelve recurso
+Tpo=6:                     T3 cat 0 obtiene recurso
+Tpo=6:           Esperando que T2 termine
+Tpo=6:           T2 termino
+Tpo=6:                     Esperando que T3 termine
+Tpo=7:                     T3 devuelve recurso
+Tpo=7:                               T4 cat 1 obtiene recurso
+Tpo=7:                     T3 termino
+Tpo=7:                               Esperando que T4 termine
+Tpo=8:                               T4 devuelve recurso
+Tpo=8:                                         T5 cat 0 obtiene recurso
+Tpo=8:                               T4 termino
+Tpo=8:                                         Esperando que T5 termine
+Tpo=9:                                         T5 devuelve recurso
+Tpo=9:                                         T5 termino
+
+Test de robustez
+----------------
+
+
+Toma un poco mas de 10 segundos
+c1 c2 c3 ... significa que ese core comenzo a trabajar
+
+c1 c2 c3 c4 c5 c6 c7 c8 
+Numero de entradas/salidas = 4398
+En mi computador make run reporto unas 10 mil entradas/salidas con 3 cores
+
+Felicitaciones: funciona

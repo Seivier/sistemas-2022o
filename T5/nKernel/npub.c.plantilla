@@ -1,0 +1,26 @@
+#define _XOPEN_SOURCE 500
+
+#include "nthread-impl.h"
+
+... defina aca las variables globales que necesite ...
+... como por ejemplo las NthQueue para damas y varones ...
+
+void nth_iniPub(void) {
+  ...
+}
+
+void nth_endPub(void) {
+  ... probablemente no necesite liberar nada ...
+}
+
+int nEntrarTimeout(int sexo, long long delayNanos) {
+  ...
+}
+
+void nEntrar(int sexo) {
+  ...
+}
+
+void nSalir(int sexo) {
+  ...
+}

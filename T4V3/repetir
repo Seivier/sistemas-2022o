@@ -1,0 +1,7 @@
+i=1
+while $*
+do
+  echo $i : ok
+  i=$(($i + 1))
+done
+echo Final count is $i

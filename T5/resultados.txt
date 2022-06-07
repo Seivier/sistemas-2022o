@@ -1,0 +1,2564 @@
+Sistema operativo utilizado
+Linux debian 5.10.0-14-amd64 #1 SMP Debian 5.10.113-1 (2022-04-29) x86_64 GNU/Linux
+==== run ====
+gcc -O2 -DOPT -g -DNOINI -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin
+./test-pub.bin
+Info: setting single-core FCFS scheduling
+Varon con timeout=0 no entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+301: varon solicita entrar al banno con timeout=0 milis
+301: expira el tiempo de espera de varon (0 milis)
+602: dama sale del banno
+Ok, aprobado
+Dama con timeout>0 que expira, no entra al banno
+0: varon solicita entrar al banno
+0: varon entra al banno
+301: dama solicita entrar al banno con timeout=300 milis
+601: expira el tiempo de espera de dama (300 milis)
+910: varon sale del banno
+Ok, aprobado
+Varon con timeout>0 que no expira, si entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+301: varon solicita entrar al banno con timeout=600 milis
+601: dama sale del banno
+601: varon entra al banno
+601: varon sale del banno
+Ok, aprobado
+4 varones solicitan entrar, 2 lo logran, 2 expiran
+0: ana solicita entrar al banno
+0: ana entra al banno
+300: pedro solicita entrar al banno con timeout=1500 milis
+614: juan solicita entrar al banno con timeout=1800 milis
+929: diego solicita entrar al banno con timeout=2100 milis
+1229: beto solicita entrar al banno con timeout=300 milis
+1532: expira el tiempo de espera de beto (300 milis)
+1811: expira el tiempo de espera de pedro (1500 milis)
+2106: ana sale del banno
+2106: juan entra al banno
+2106: juan sale del banno
+2106: diego entra al banno
+2106: diego sale del banno
+Ok, aprobado
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra
+7: pedro entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: maria entra
+7: ana entra
+7: silvia entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: pedro entra
+10: diego entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: maria entra
+5: ana entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: pedro entra
+9: diego entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra
+7: pedro entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: maria entra
+7: ana entra
+7: silvia entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: pedro entra
+10: diego entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: maria entra
+5: ana entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: pedro entra
+9: diego entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 1
+Info: total context changes = 3000426
+Info: Implicit context changes = 0
+==== run-g ====
+gcc -g  -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin-g
+./test-pub.bin-g
+Info: setting single-core FCFS scheduling
+Varon con timeout=0 no entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+331: varon solicita entrar al banno con timeout=0 milis
+331: expira el tiempo de espera de varon (0 milis)
+601: dama sale del banno
+Ok, aprobado
+Dama con timeout>0 que expira, no entra al banno
+0: varon solicita entrar al banno
+0: varon entra al banno
+301: dama solicita entrar al banno con timeout=300 milis
+625: expira el tiempo de espera de dama (300 milis)
+902: varon sale del banno
+Ok, aprobado
+Varon con timeout>0 que no expira, si entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+300: varon solicita entrar al banno con timeout=600 milis
+601: dama sale del banno
+601: varon entra al banno
+601: varon sale del banno
+Ok, aprobado
+4 varones solicitan entrar, 2 lo logran, 2 expiran
+0: ana solicita entrar al banno
+0: ana entra al banno
+318: pedro solicita entrar al banno con timeout=1500 milis
+622: juan solicita entrar al banno con timeout=1800 milis
+927: diego solicita entrar al banno con timeout=2100 milis
+1261: beto solicita entrar al banno con timeout=300 milis
+1598: expira el tiempo de espera de beto (300 milis)
+1829: expira el tiempo de espera de pedro (1500 milis)
+2103: ana sale del banno
+2103: juan entra al banno
+2103: juan sale del banno
+2103: diego entra al banno
+2103: diego sale del banno
+Ok, aprobado
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra
+7: pedro entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: maria entra
+7: ana entra
+7: silvia entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: pedro entra
+10: diego entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: maria entra
+5: ana entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: pedro entra
+9: diego entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra
+7: pedro entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: maria entra
+7: ana entra
+7: silvia entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: pedro entra
+10: diego entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: maria entra
+5: ana entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: pedro entra
+9: diego entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 1
+Info: total context changes = 3000426
+Info: Implicit context changes = 0
+==== run-mem ====
+gcc -g -fsanitize=address -fsanitize=undefined -DSANITIZE  -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin-mem
+./test-pub.bin-mem
+Info: setting single-core FCFS scheduling
+Varon con timeout=0 no entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+309: varon solicita entrar al banno con timeout=0 milis
+309: expira el tiempo de espera de varon (0 milis)
+607: dama sale del banno
+Ok, aprobado
+Dama con timeout>0 que expira, no entra al banno
+0: varon solicita entrar al banno
+0: varon entra al banno
+314: dama solicita entrar al banno con timeout=300 milis
+619: expira el tiempo de espera de dama (300 milis)
+916: varon sale del banno
+Ok, aprobado
+Varon con timeout>0 que no expira, si entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+317: varon solicita entrar al banno con timeout=600 milis
+608: dama sale del banno
+608: varon entra al banno
+608: varon sale del banno
+Ok, aprobado
+4 varones solicitan entrar, 2 lo logran, 2 expiran
+1: ana solicita entrar al banno
+1: ana entra al banno
+310: pedro solicita entrar al banno con timeout=1500 milis
+614: juan solicita entrar al banno con timeout=1800 milis
+915: diego solicita entrar al banno con timeout=2100 milis
+1216: beto solicita entrar al banno con timeout=300 milis
+1526: expira el tiempo de espera de beto (300 milis)
+1822: expira el tiempo de espera de pedro (1500 milis)
+2101: ana sale del banno
+2101: juan entra al banno
+2101: juan sale del banno
+2101: diego entra al banno
+2101: diego sale del banno
+Ok, aprobado
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra
+7: pedro entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: maria entra
+7: ana entra
+7: silvia entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: pedro entra
+10: diego entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: maria entra
+5: ana entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: pedro entra
+9: diego entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra
+7: pedro entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: maria entra
+7: ana entra
+7: silvia entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: pedro entra
+10: diego entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: maria entra
+5: ana entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: pedro entra
+9: diego entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 1
+Info: total context changes = 3000426
+Info: Implicit context changes = 0
+==== run-tricore ====
+gcc -O2 -DOPT -g  -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin
+./test-pub.bin -slice 100 -ncores 3
+Info: setting multi-core round robin scheduling
+Varon con timeout=0 no entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+308: varon solicita entrar al banno con timeout=0 milis
+308: expira el tiempo de espera de varon (0 milis)
+603: dama sale del banno
+Ok, aprobado
+Dama con timeout>0 que expira, no entra al banno
+0: varon solicita entrar al banno
+0: varon entra al banno
+316: dama solicita entrar al banno con timeout=300 milis
+619: expira el tiempo de espera de dama (300 milis)
+903: varon sale del banno
+Ok, aprobado
+Varon con timeout>0 que no expira, si entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+309: varon solicita entrar al banno con timeout=600 milis
+601: dama sale del banno
+601: varon entra al banno
+601: varon sale del banno
+Ok, aprobado
+4 varones solicitan entrar, 2 lo logran, 2 expiran
+0: ana solicita entrar al banno
+0: ana entra al banno
+301: pedro solicita entrar al banno con timeout=1500 milis
+605: juan solicita entrar al banno con timeout=1800 milis
+907: diego solicita entrar al banno con timeout=2100 milis
+1215: beto solicita entrar al banno con timeout=300 milis
+1547: expira el tiempo de espera de beto (300 milis)
+1801: expira el tiempo de espera de pedro (1500 milis)
+2100: ana sale del banno
+2100: diego entra al banno
+2100: diego sale del banno
+2100: juan entra al banno
+2100: juan sale del banno
+Ok, aprobado
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: pedro entra
+7: juan entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: silvia entra
+7: ana entra
+7: maria entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: diego entra
+10: pedro entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: ana entra
+5: maria entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: diego entra
+9: pedro entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: pedro entra
+7: juan entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: silvia entra
+7: ana entra
+7: maria entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: diego entra
+10: pedro entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: ana entra
+5: maria entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: diego entra
+9: pedro entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 3
+Info: total context changes = 3861917
+Info: Implicit context changes = 1
+==== run-tricore-g ====
+gcc -g  -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin-g
+./test-pub.bin-g -slice 100 -ncores 3
+Info: setting multi-core round robin scheduling
+Varon con timeout=0 no entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+340: varon solicita entrar al banno con timeout=0 milis
+340: expira el tiempo de espera de varon (0 milis)
+603: dama sale del banno
+Ok, aprobado
+Dama con timeout>0 que expira, no entra al banno
+0: varon solicita entrar al banno
+0: varon entra al banno
+311: dama solicita entrar al banno con timeout=300 milis
+663: expira el tiempo de espera de dama (300 milis)
+944: varon sale del banno
+Ok, aprobado
+Varon con timeout>0 que no expira, si entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+313: varon solicita entrar al banno con timeout=600 milis
+614: dama sale del banno
+614: varon entra al banno
+614: varon sale del banno
+Ok, aprobado
+4 varones solicitan entrar, 2 lo logran, 2 expiran
+1: ana solicita entrar al banno
+1: ana entra al banno
+303: pedro solicita entrar al banno con timeout=1500 milis
+605: juan solicita entrar al banno con timeout=1800 milis
+929: diego solicita entrar al banno con timeout=2100 milis
+1232: beto solicita entrar al banno con timeout=300 milis
+1535: expira el tiempo de espera de beto (300 milis)
+1805: expira el tiempo de espera de pedro (1500 milis)
+2101: ana sale del banno
+2101: diego entra al banno
+2101: diego sale del banno
+2101: juan entra al banno
+2101: juan sale del banno
+Ok, aprobado
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: pedro entra
+7: juan entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: silvia entra
+7: ana entra
+7: maria entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: diego entra
+10: pedro entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: ana entra
+5: maria entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: diego entra
+9: pedro entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: pedro entra
+7: juan entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: silvia entra
+7: ana entra
+7: maria entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: diego entra
+10: pedro entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: ana entra
+5: maria entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: diego entra
+9: pedro entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 3
+Info: total context changes = 3822434
+Info: Implicit context changes = 0
+==== run-tricore-mem ====
+gcc -g -fsanitize=address -fsanitize=undefined -DSANITIZE  -DNTHREADS -Wall -Werror -pedantic -Wno-unused-function -Wno-unused-variable -std=c18 -InKernel test-pub.c nKernel/nthread.c nKernel/nutil.c nKernel/ntime.c nKernel/pss.c nKernel/sched-fcfs.c nKernel/sched-rr.c nKernel/sched-pri-1core.c nKernel/sched-fcfs-1core.c nKernel/sem.c nKernel/mutex-cond.c nKernel/nmsgs.c nKernel/nStack-amd64.s nKernel/nsystem.c nKernel/npub.c -lm -lrt -lpthread -o test-pub.bin-mem
+./test-pub.bin-mem -slice 100 -ncores 3
+Info: setting multi-core round robin scheduling
+Varon con timeout=0 no entra al banno
+1: dama solicita entrar al banno
+1: dama entra al banno
+304: varon solicita entrar al banno con timeout=0 milis
+304: expira el tiempo de espera de varon (0 milis)
+614: dama sale del banno
+Ok, aprobado
+Dama con timeout>0 que expira, no entra al banno
+0: varon solicita entrar al banno
+0: varon entra al banno
+310: dama solicita entrar al banno con timeout=300 milis
+614: expira el tiempo de espera de dama (300 milis)
+915: varon sale del banno
+Ok, aprobado
+Varon con timeout>0 que no expira, si entra al banno
+0: dama solicita entrar al banno
+0: dama entra al banno
+308: varon solicita entrar al banno con timeout=600 milis
+616: dama sale del banno
+616: varon entra al banno
+616: varon sale del banno
+Ok, aprobado
+4 varones solicitan entrar, 2 lo logran, 2 expiran
+0: ana solicita entrar al banno
+0: ana entra al banno
+305: pedro solicita entrar al banno con timeout=1500 milis
+607: juan solicita entrar al banno con timeout=1800 milis
+910: diego solicita entrar al banno con timeout=2100 milis
+1216: beto solicita entrar al banno con timeout=300 milis
+1520: expira el tiempo de espera de beto (300 milis)
+1808: expira el tiempo de espera de pedro (1500 milis)
+2102: ana sale del banno
+2102: diego entra al banno
+2102: diego sale del banno
+2102: juan entra al banno
+2102: juan sale del banno
+Ok, aprobado
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: pedro entra
+7: juan entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: silvia entra
+7: ana entra
+7: maria entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: diego entra
+10: pedro entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: ana entra
+5: maria entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: diego entra
+9: pedro entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+--- Primer test -------------
+1: pedro solicita entrar, pedro entra
+2: pedro sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: pedro sale
+--- 2do. test ---------------
+1: maria solicita entrar, maria entra
+2: maria sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: maria sale
+--- 3er. test ---------------
+1: pedro solicita entrar, pedro entra
+2: maria solicita entrar
+3: pedro sale, maria entra
+4: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: maria solicita entrar
+3: pedro sale
+3: maria entra
+4: maria sale
+--- 4to. test --------------------------------------------
+1: maria solicita entrar, maria entra
+2: pedro solicita entrar
+3: maria sale, pedro entra
+4: pedro sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: pedro solicita entrar
+3: maria sale
+3: pedro entra
+4: pedro sale
+--- 5to. test --------------------------------------------
+1: pedro solicita entrar, pedro entra
+2: juan solicita entrar, juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale, maria entra
+6: maria sale
+==>
+1: pedro solicita entrar
+1: pedro entra
+2: juan solicita entrar
+2: juan entra
+3: maria solicita entrar
+4: pedro sale
+5: juan sale
+5: maria entra
+6: maria sale
+--- 6to. test --------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: juan sale
+--- 7mo. test ------------------------------------------
+1: maria solicita entrar, maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: juan entra, pedro entra,
+8: juan sale
+9: pedro sale, silvia entra
+10: silvia sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: silvia solicita entrar
+5: pedro solicita entrar
+6: maria sale
+7: ana sale
+7: pedro entra
+7: juan entra
+8: juan sale
+9: pedro sale
+9: silvia entra
+10: silvia sale
+--- 8vo. test ------------------------------------------
+1: juan solicita entrar, 1: juan entra,
+2: maria solicita entrar, 3: pedro solicita entrar,
+4: ana solicita entrar, 5: diego solicita entrar,
+6: silvia solicita entrar, 7: juan sale
+7: maria entra, 7: ana entra, 7: silvia entra,
+8: ana sale, 9: silvia sale, 10: maria sale,
+10: pedro entra, 10: diego entra,
+11: pedro sale, 12: diego sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: diego solicita entrar
+6: silvia solicita entrar
+7: juan sale
+7: silvia entra
+7: ana entra
+7: maria entra
+8: ana sale
+9: silvia sale
+10: maria sale
+10: diego entra
+10: pedro entra
+11: pedro sale
+12: diego sale
+--- 9no. test ------------------------------------------
+1: juan solicita entrar y juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale, maria y ana entran
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale, pedro y diego entran
+10: pedro sale
+11: paco solicita entrar
+12: diego sale y silvia entra
+13 silvia sale y paco entra
+14: paco sale
+==>
+1: juan solicita entrar
+1: juan entra
+2: maria solicita entrar
+3: pedro solicita entrar
+4: ana solicita entrar
+5: juan sale
+5: ana entra
+5: maria entra
+6: silvia solicita entrar
+7: diego solicita entrar
+8: ana sale
+9: maria sale
+9: diego entra
+9: pedro entra
+10: pedro sale
+11: paco solicita entrar
+12: diego sale
+12: silvia entra
+13: silvia sale
+13: paco entra
+14: paco sale
+--- 10mo. test -------------------------------------------
+1: maria solicita entrar,maria entra
+2: ana solicita entrar, ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale, juan entra
+6: pedro solicita entrar, pedro entra
+7: pedro sale
+8: juan sale
+==>
+1: maria solicita entrar
+1: maria entra
+2: ana solicita entrar
+2: ana entra
+3: juan solicita entrar
+4: ana sale
+5: maria sale
+5: juan entra
+6: pedro solicita entrar
+6: pedro entra
+7: pedro sale
+8: juan sale
+----------------
+test de esfuerzo
+MFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFMFFMMFMFM
+
+Felicitaciones: paso todos los tests.
+Info: Number of cores = 3
+Info: total context changes = 3782128
+Info: Implicit context changes = 1

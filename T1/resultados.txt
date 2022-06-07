@@ -1,0 +1,82 @@
+Linux virtualbox 5.10.0-12-amd64 #1 SMP Debian 5.10.103-1 (2022-03-07) x86_64 GNU/Linux
+==== run ====
+gcc -O -DOPT=1 -Wall -Werror -pedantic -std=c18  sat.c test-sat.c sat.h -pthread -o sat.bin
+./sat.bin
+Calculando recuento secuencial de f4
+Calculando recuento paralelo de f4 usando 1 threads
+Threads usados: 1
+Calculando recuento paralelo de f4 usando 2 threads
+Threads usados: 2
+Calculando recuento paralelo de f4 usando 4 threads
+Threads usados: 4
+Calculando recuento paralelo de f4 usando 8 threads
+Threads usados: 8
+Calculando recuento paralelo de f4 usando 16 threads
+Threads usados: 16
+Recuento paralelo de f4 es correcto
+
+Calculando recuento secuencial para f_big
+~6 segundos en mi PC (Debian 11 Mate, Ryzen 5 3550H)
+Debe probar su tarea en una maquina desocupada con al menos 2 cores
+recuento secuencial para f_big: 440507292 (12337 milisegs.)
+Intento 1 de 5
+Calculando recuento paralelo para f_big usando 2 threads
+recuento paralelo para f_big: 440507292 (6723 milisegs.)
+Factor de mejora aprobado: 1.835044
+
+
+Felicitaciones: su tarea satisface el enunciado de la tarea
+==== run-g ====
+gcc -g -Wall -Werror -pedantic -std=c18  sat.c test-sat.c sat.h -pthread -o sat.bin-g
+./sat.bin-g
+Calculando recuento secuencial de f4
+Calculando recuento paralelo de f4 usando 1 threads
+Threads usados: 1
+Calculando recuento paralelo de f4 usando 2 threads
+Threads usados: 2
+Calculando recuento paralelo de f4 usando 4 threads
+Threads usados: 4
+Calculando recuento paralelo de f4 usando 8 threads
+Threads usados: 8
+Calculando recuento paralelo de f4 usando 16 threads
+Threads usados: 16
+Recuento paralelo de f4 es correcto
+
+Calculando recuento secuencial para f_big
+~6 segundos en mi PC (Debian 11 Mate, Ryzen 5 3550H)
+Debe probar su tarea en una maquina desocupada con al menos 2 cores
+recuento secuencial para f_big: 440507292 (15666 milisegs.)
+Intento 1 de 1
+Calculando recuento paralelo para f_big usando 2 threads
+recuento paralelo para f_big: 440507292 (8378 milisegs.)
+Factor de mejora aprobado: 1.869897
+
+
+Felicitaciones: su tarea satisface el enunciado de la tarea
+==== run-san ====
+gcc -g -DSAN=1 -fsanitize=address -DSANITIZE -Wall -Werror -pedantic -std=c18  sat.c test-sat.c sat.h -pthread -o sat.bin-san
+./sat.bin-san
+Calculando recuento secuencial de f4
+Calculando recuento paralelo de f4 usando 1 threads
+Threads usados: 1
+Calculando recuento paralelo de f4 usando 2 threads
+Threads usados: 2
+Calculando recuento paralelo de f4 usando 4 threads
+Threads usados: 4
+Calculando recuento paralelo de f4 usando 8 threads
+Threads usados: 8
+Calculando recuento paralelo de f4 usando 16 threads
+Threads usados: 16
+Recuento paralelo de f4 es correcto
+
+Calculando recuento secuencial para f_big
+~6 segundos en mi PC (Debian 11 Mate, Ryzen 5 3550H)
+Debe probar su tarea en una maquina desocupada con al menos 2 cores
+recuento secuencial para f_big: 440507292 (25126 milisegs.)
+Intento 1 de 1
+Calculando recuento paralelo para f_big usando 2 threads
+recuento paralelo para f_big: 440507292 (14324 milisegs.)
+Factor de mejora aprobado: 1.754119
+
+
+Felicitaciones: su tarea satisface el enunciado de la tarea

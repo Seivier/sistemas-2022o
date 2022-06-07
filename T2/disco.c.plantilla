@@ -1,0 +1,26 @@
+#include <pthread.h>
+#include <stdio.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "disco.h"
+
+void discoInit(void) {
+  ...
+}
+
+void discoDestroy(void) {
+  ...
+}
+
+// declare aca sus variables globales
+...
+
+char *dama(char *nom) {
+  ...
+}
+
+char *varon(char *nom) {
+  ...
+}

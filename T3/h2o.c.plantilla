@@ -1,0 +1,26 @@
+#include <pthread.h>
+
+#include "pss.h"
+#include "h2o.h"
+
+.. define aca las estructuras de datos que necesite ...
+
+.. define aca las variables globales que necesite ...
+
+void initH2O(void) {
+  ...
+}
+
+void endH2O(void) {
+  ...
+}
+
+H2O *combineOxy(Oxygen *o) {
+  ...
+  ... invoque makeH2O(h1, h2, o) para formar la molecula ...
+}
+
+H2O *combineHydro(Hydrogen *h) {
+  ...
+  ... invoque makeH2O(h1, h2, o) para formar la molecula ...
+}

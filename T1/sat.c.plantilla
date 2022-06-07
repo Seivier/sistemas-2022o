@@ -1,0 +1,9 @@
+#include <pthread.h>
+#include <stdio.h>
+#include "sat.h"
+
+... programe aca las funciones recursivas que necesite ...
+
+int recuento(int n, BoolFun f, int p) {
+  ... programe aca recuento ...
+}

@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+#include "pss.h"
+#include "spin-locks.h"
+#include "pedir.h"
+
+// Defina aca sus variables globales
+...
+
+void iniciar() {
+  ...
+}
+
+void terminar() {
+  ...
+}
+
+void pedir(int cat) {
+  ...
+}
+
+void devolver() {
+  ...
+}
