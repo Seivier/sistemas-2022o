@@ -42,9 +42,8 @@ static int buffer_major = 61;
 /* Buffer to store data */
 #define MAX_SIZE 80
 #define MAX_BUFFER_SIZE 3   
-static char **buffer;
+static char *buffer;
 static ssize_t *curr_size;
-static int buffer_size;
 static int read_pos;
 static int write_pos;
 
@@ -53,7 +52,6 @@ static KCondition cond;
 
 int buffer_init(void) {
     int rc;
-    ssize_t i;
 
     /* Registering device */
     rc = register_chrdev(buffer_major, "buffer", &buffer_fops);
@@ -64,31 +62,24 @@ int buffer_init(void) {
 
     read_pos= 0;
     write_pos= 0;
-    buffer_size= 0;
     m_init(&mutex);
     c_init(&cond);
 
-    buffer = kmalloc(MAX_BUFFER_SIZE * sizeof(char*), GFP_KERNEL);
+    /* Allocating memory for the buffer */
+    buffer = kmalloc(MAX_SIZE*MAX_BUFFER_SIZE, GFP_KERNEL);
     if (buffer==NULL) {
         buffer_exit();
         return -ENOMEM;
     }
-    /* Allocating syncread_buffer */
-    for(i=0; i<MAX_BUFFER_SIZE; i++) {
-        buffer[i] = kmalloc(MAX_SIZE, GFP_KERNEL);
-        if (buffer[i]==NULL) {
-            buffer_exit();
-            return -ENOMEM;
-        }
-        memset(buffer[i], 0, MAX_SIZE);
-    }
+    memset(buffer, 0, MAX_SIZE*MAX_BUFFER_SIZE);
+
     curr_size = kmalloc(MAX_BUFFER_SIZE * sizeof(ssize_t), GFP_KERNEL);
     if (curr_size==NULL) {
         buffer_exit();
         return -ENOMEM;
     }
     memset(curr_size, 0, MAX_BUFFER_SIZE * sizeof(ssize_t));
-    printk("<1>Inserting buffer module\n");
+    printk("<1>Inserting buffer module with %d bytes\n", MAX_SIZE*MAX_BUFFER_SIZE);
     return 0;
 }
 
@@ -98,12 +89,6 @@ void buffer_exit(void) {
 
     /* Freeing buffer syncread */
     if (buffer) {
-        ssize_t i;
-        for(i=0; i<MAX_BUFFER_SIZE; i++) {
-            if (buffer[i]) {
-                kfree(buffer[i]);
-            }
-        }
         kfree(buffer);
     }
     if (curr_size) {
@@ -117,40 +102,44 @@ static int buffer_open(struct inode *inode, struct file *filp) {
     char *mode= filp->f_mode & FMODE_WRITE ? "write" :
                 filp->f_mode & FMODE_READ ? "read" :
                 "unknown";
-    int pos = filp->f_mode & FMODE_WRITE ? write_pos :
-              filp->f_mode & FMODE_READ ? read_pos : -1;
-    printk("<1>open at %d for %s\n", pos, mode);
+    printk("<1>open for %s\n", mode);
     return 0;
 }
 
 static int buffer_release(struct inode *inode, struct file *filp) {
-    printk("<1>release with %d %d %d\n", (int)curr_size[0], (int)curr_size[1], (int)curr_size[2]);
+    printk("<1>release \n");
     return 0;
 }
 
 static ssize_t buffer_read(struct file *filp, char *buf, size_t count, loff_t *f_pos) {
     m_lock(&mutex);
+    /* 
+    Implementación: 
+    Asumimos que la segunda vez que se lee siempre se debe enviar la señal de final de archivo,
+    es decir, que siempre se lee un count < MAX_SIZE
+    */
     if(*f_pos!=0) {
         m_unlock(&mutex);
         return 0;
     }
     /* mientras no hay nada en el buffer, se espera */
-    while(buffer_size==0) {
+    while(curr_size[read_pos] == 0) {
        if(c_wait(&cond, &mutex)) {
-            printk("<1>buffer_read: interrupted waiting for %d to be 0 [%d]\n", (int)read_pos, (int)curr_size[read_pos]);
+            printk("<1>buffer_read: interrupted\n");
             m_unlock(&mutex);
             return -EINTR;
        }
        printk("<1>buffer_read: awoken \n");
     }
 
+    /* en caso de overflow */
     if (count>curr_size[read_pos]-*f_pos) {
         count= curr_size[read_pos]-*f_pos;
     }
 
     printk("<1>buffer_read: reading %d bytes at %d\n", (int)count, (int)*f_pos);
 
-    if(copy_to_user(buf, buffer[read_pos]+*f_pos, count)!=0) {
+    if(copy_to_user(buf, buffer+*f_pos+MAX_SIZE*read_pos, count)!=0) {
         printk("<1>buffer_read: copy_to_user failed\n");
         m_unlock(&mutex);
         return -EFAULT;
@@ -158,7 +147,6 @@ static ssize_t buffer_read(struct file *filp, char *buf, size_t count, loff_t *f
 
     *f_pos+= count;
     curr_size[read_pos]= 0;
-    buffer_size--;
     read_pos = (read_pos+1)%MAX_BUFFER_SIZE;
     c_broadcast(&cond);
     m_unlock(&mutex);
@@ -169,23 +157,24 @@ static ssize_t buffer_write(struct file *filp, const char *buf, size_t count, lo
     loff_t last;
     m_lock(&mutex);
 
-    /* mientras el buffer esta lleno, se espera */
-    while(buffer_size==MAX_BUFFER_SIZE) {
+    /* mientras el buffer esta lleno, se espera. Esto se verifica cuando el puntero para guardar esta sobre algo con informacion */
+    while(curr_size[write_pos] != 0) {
         if(c_wait(&cond, &mutex)) {
-            printk("<1>buffer_write: interrupted waiting for %d to be 0 [%d]\n", (int)write_pos, (int)curr_size[write_pos]);
+            printk("<1>buffer_write: interrupted\n");
             m_unlock(&mutex);
             return -EINTR;
         }
         printk("<1>buffer_write: awoken\n");
     }
 
+    /* solo por si acaso, aunque para el caso de write no hay overflow */
     last = *f_pos + count;
     if (last>MAX_SIZE) {
         count -= last-MAX_SIZE;
     }
     printk("<1>write %d bytes at %d\n", (int)count, (int)*f_pos);
 
-    if(copy_from_user(buffer[write_pos]+*f_pos, buf, count)!=0) {
+    if(copy_from_user(buffer+*f_pos+MAX_SIZE*write_pos, buf, count)!=0) {
         printk("<1>buffer_write: copy_from_user failed\n");
         m_unlock(&mutex);
         return -EFAULT;
@@ -193,7 +182,6 @@ static ssize_t buffer_write(struct file *filp, const char *buf, size_t count, lo
 
     *f_pos+= count;
     curr_size[write_pos]= (int)*f_pos;
-    buffer_size++;
     write_pos = (write_pos+1)%MAX_BUFFER_SIZE;
     c_broadcast(&cond);
     m_unlock(&mutex);
