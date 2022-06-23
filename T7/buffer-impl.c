@@ -135,7 +135,7 @@ static ssize_t buffer_read(struct file *filp, char *buf, size_t count, loff_t *f
     /* mientras no hay nada en el buffer, se espera */
     while(curr_size[read_pos]==0) {
        if(c_wait(&cond, &mutex)) {
-            printk("<1>buffer_read: interrupted\n");
+            printk("<1>buffer_read: interrupted waiting for %d to be 0 [%d]\n", (int)read_pos, (int)curr_size[read_pos]);
             m_unlock(&mutex);
             return -EINTR;
        }
@@ -168,7 +168,7 @@ static ssize_t buffer_write(struct file *filp, const char *buf, size_t count, lo
     /* mientras el buffer esta lleno, se espera */
     while(curr_size[write_pos]!=0) {
         if(c_wait(&cond, &mutex)) {
-            printk("<1>buffer_write: interrupted\n");
+            printk("<1>buffer_write: interrupted waiting for %d to be 0 [%d]\n", (int)write_pos, (int)curr_size[write_pos]);
             m_unlock(&mutex);
             return -EINTR;
         }
