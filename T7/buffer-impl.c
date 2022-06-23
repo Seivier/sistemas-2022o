@@ -160,8 +160,8 @@ static ssize_t buffer_read(struct file *filp, char *buf, size_t count, loff_t *f
     curr_size[read_pos]= 0;
     buffer_size--;
     read_pos = (read_pos+1)%MAX_BUFFER_SIZE;
-    m_unlock(&mutex);
     c_broadcast(&cond);
+    m_unlock(&mutex);
     return count;
 }
 
@@ -195,7 +195,7 @@ static ssize_t buffer_write(struct file *filp, const char *buf, size_t count, lo
     curr_size[write_pos]= (int)*f_pos;
     buffer_size++;
     write_pos = (write_pos+1)%MAX_BUFFER_SIZE;
-    m_unlock(&mutex);
     c_broadcast(&cond);
+    m_unlock(&mutex);
     return count;
 }
