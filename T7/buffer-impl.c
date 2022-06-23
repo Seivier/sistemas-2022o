@@ -115,8 +115,8 @@ static int buffer_open(struct inode *inode, struct file *filp) {
     char *mode= filp->f_mode & FMODE_WRITE ? "write" :
                 filp->f_mode & FMODE_READ ? "read" :
                 "unknown";
-    int pos = ilp->f_mode & FMODE_WRITE ? write_pos :
-                filp->f_mode & FMODE_READ ? read_pos : -1;
+    int pos = filp->f_mode & FMODE_WRITE ? write_pos :
+              filp->f_mode & FMODE_READ ? read_pos : -1;
     printk("<1>open at %d for %s\n", pos, mode);
     return 0;
 }
