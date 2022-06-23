@@ -44,6 +44,7 @@ static int buffer_major = 61;
 #define MAX_BUFFER_SIZE 3   
 static char **buffer;
 static ssize_t *curr_size;
+static int buffer_size;
 static int read_pos;
 static int write_pos;
 
@@ -52,6 +53,7 @@ static KCondition cond;
 
 int buffer_init(void) {
     int rc;
+    ssize_t i;
 
     /* Registering device */
     rc = register_chrdev(buffer_major, "buffer", &buffer_fops);
@@ -62,6 +64,7 @@ int buffer_init(void) {
 
     read_pos= 0;
     write_pos= 0;
+    buffer_size= 0;
     m_init(&mutex);
     c_init(&cond);
 
@@ -71,7 +74,6 @@ int buffer_init(void) {
         return -ENOMEM;
     }
     /* Allocating syncread_buffer */
-    ssize_t i;
     for(i=0; i<MAX_BUFFER_SIZE; i++) {
         buffer[i] = kmalloc(MAX_SIZE, GFP_KERNEL);
         if (buffer[i]==NULL) {
@@ -133,12 +135,13 @@ static ssize_t buffer_read(struct file *filp, char *buf, size_t count, loff_t *f
         return 0;
     }
     /* mientras no hay nada en el buffer, se espera */
-    while(curr_size[read_pos]==0) {
+    while(buffer_size==0) {
        if(c_wait(&cond, &mutex)) {
             printk("<1>buffer_read: interrupted waiting for %d to be 0 [%d]\n", (int)read_pos, (int)curr_size[read_pos]);
             m_unlock(&mutex);
             return -EINTR;
        }
+       printk("<1>buffer_read: awoken \n");
     }
 
     if (count>curr_size[read_pos]-*f_pos) {
@@ -155,6 +158,7 @@ static ssize_t buffer_read(struct file *filp, char *buf, size_t count, loff_t *f
 
     *f_pos+= count;
     curr_size[read_pos]= 0;
+    buffer_size--;
     read_pos = (read_pos+1)%MAX_BUFFER_SIZE;
     m_unlock(&mutex);
     c_broadcast(&cond);
@@ -166,12 +170,13 @@ static ssize_t buffer_write(struct file *filp, const char *buf, size_t count, lo
     m_lock(&mutex);
 
     /* mientras el buffer esta lleno, se espera */
-    while(curr_size[write_pos]!=0) {
+    while(buffer_size==MAX_BUFFER_SIZE) {
         if(c_wait(&cond, &mutex)) {
             printk("<1>buffer_write: interrupted waiting for %d to be 0 [%d]\n", (int)write_pos, (int)curr_size[write_pos]);
             m_unlock(&mutex);
             return -EINTR;
         }
+        printk("<1>buffer_write: awoken\n");
     }
 
     last = *f_pos + count;
@@ -187,7 +192,8 @@ static ssize_t buffer_write(struct file *filp, const char *buf, size_t count, lo
     }
 
     *f_pos+= count;
-    curr_size[write_pos]= *f_pos;
+    curr_size[write_pos]= (int)*f_pos;
+    buffer_size++;
     write_pos = (write_pos+1)%MAX_BUFFER_SIZE;
     m_unlock(&mutex);
     c_broadcast(&cond);
