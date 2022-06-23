@@ -115,7 +115,8 @@ static int buffer_open(struct inode *inode, struct file *filp) {
     char *mode= filp->f_mode & FMODE_WRITE ? "write" :
                 filp->f_mode & FMODE_READ ? "read" :
                 "unknown";
-    int pos = mode == "write" ? write_pos : read_pos;
+    int pos = ilp->f_mode & FMODE_WRITE ? write_pos :
+                filp->f_mode & FMODE_READ ? read_pos : -1;
     printk("<1>open at %d for %s\n", pos, mode);
     return 0;
 }
@@ -126,7 +127,6 @@ static int buffer_release(struct inode *inode, struct file *filp) {
 }
 
 static ssize_t buffer_read(struct file *filp, char *buf, size_t count, loff_t *f_pos) {
-    ssize_t rc;
     m_lock(&mutex);
     if(*f_pos!=0) {
         m_unlock(&mutex);
@@ -162,7 +162,6 @@ static ssize_t buffer_read(struct file *filp, char *buf, size_t count, loff_t *f
 }
 
 static ssize_t buffer_write(struct file *filp, const char *buf, size_t count, loff_t *f_pos) {
-    ssize_t rc;
     loff_t last;
     m_lock(&mutex);
 
