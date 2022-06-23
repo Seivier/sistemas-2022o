@@ -1,0 +1,10 @@
+make: Entering directory `/Volumes/Dev/University/Fall 2022/Operating Systems/Tareas/T7'
+/Library/Developer/CommandLineTools/usr/bin/make -C /lib/modules/21.5.0/build M=/Volumes/Dev/University/Fall 2022/Operating Systems/Tareas/T7 modules
+ 
+make: Entering an unknown directory
+make: Leaving an unknown directory
+make: Leaving directory `/Volumes/Dev/University/Fall 2022/Operating Systems/Tareas/T7'
+ 
+make: *** /lib/modules/21.5.0/build: No such file or directory.  Stop.
+make: *** [default] Error 2
+
