@@ -71,7 +71,8 @@ int buffer_init(void) {
         return -ENOMEM;
     }
     /* Allocating syncread_buffer */
-    for(ssize_t i=0; i<MAX_BUFFER_SIZE; i++) {
+    ssize_t i;
+    for(i=0; i<MAX_BUFFER_SIZE; i++) {
         buffer[i] = kmalloc(MAX_SIZE, GFP_KERNEL);
         if (buffer[i]==NULL) {
             buffer_exit();
@@ -85,7 +86,7 @@ int buffer_init(void) {
         return -ENOMEM;
     }
     memset(curr_size, 0, MAX_BUFFER_SIZE * sizeof(ssize_t));
-    printk("<1>Inserting syncread module\n");
+    printk("<1>Inserting buffer module\n");
     return 0;
 }
 
@@ -95,12 +96,13 @@ void buffer_exit(void) {
 
     /* Freeing buffer syncread */
     if (buffer) {
-        for(ssize_t i=0; i<MAX_BUFFER_SIZE; i++) {
+        ssize_t i;
+        for(i=0; i<MAX_BUFFER_SIZE; i++) {
             if (buffer[i]) {
                 kfree(buffer[i]);
             }
         }
-        kfree(buffer_buffer);
+        kfree(buffer);
     }
     if (curr_size) {
         kfree(curr_size);
@@ -113,12 +115,13 @@ static int buffer_open(struct inode *inode, struct file *filp) {
     char *mode= filp->f_mode & FMODE_WRITE ? "write" :
                 filp->f_mode & FMODE_READ ? "read" :
                 "unknown";
-    printk("<1>open %p for %s\n", filp, mode);
+    int pos = mode == "write" ? write_pos : read_pos;
+    printk("<1>open at %d for %s\n", pos, mode);
     return 0;
 }
 
 static int buffer_release(struct inode *inode, struct file *filp) {
-    printk("<1>release %p\n", filp);
+    printk("<1>release with %d %d %d\n", (int)curr_size[0], (int)curr_size[1], (int)curr_size[2]);
     return 0;
 }
 
